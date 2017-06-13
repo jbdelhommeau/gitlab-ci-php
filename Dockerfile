@@ -40,9 +40,6 @@ RUN echo "memory_limit=-1" > $PHP_INI_DIR/conf.d/memory-limit.ini
 # Time Zone
 RUN echo "date.timezone=${PHP_TIMEZONE:-UTC}" > $PHP_INI_DIR/conf.d/date_timezone.ini
 
-# Specify composer cache dir
-ENV COMPOSER_CACHE_DIR=/tmp/composer
-
 # Set composer home dir
 ENV COMPOSER_HOME /composer
 
@@ -59,5 +56,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Run composer and prestissimo installation
 RUN composer global require "hirak/prestissimo:^0.3" --prefer-dist --no-progress --no-suggest --optimize-autoloader --classmap-authoritative
 
+# Create ssh dir for set config
 RUN mkdir -p ~/.ssh
+
+# Not check host for ssh connection
 RUN echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
