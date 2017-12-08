@@ -1,5 +1,7 @@
 FROM php:7.1
-MAINTAINER Jean-Baptiste Delhommeau <jeanbadel@gmail.com>
+
+LABEL version="1.0"
+LABEL maintainer="Jean-Baptiste Delhommeau <jeanbadel@gmail.com>"
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -55,6 +57,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 # Run composer and prestissimo installation
 RUN composer global require "hirak/prestissimo:^0.3" --prefer-dist --no-progress --no-suggest --optimize-autoloader --classmap-authoritative
+
+# Install PhpUnit
+RUN curl -SL "https://phar.phpunit.de/phpunit-6.5.phar" -o /usr/local/bin/phpunit \
+	&& chmod +x /usr/local/bin/phpunit
 
 # Create ssh dir for set config
 RUN mkdir -p ~/.ssh
