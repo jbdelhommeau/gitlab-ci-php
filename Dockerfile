@@ -62,6 +62,13 @@ RUN composer global require "hirak/prestissimo:^0.3" --prefer-dist --no-progress
 RUN curl -SL "https://phar.phpunit.de/phpunit-6.5.phar" -o /usr/local/bin/phpunit \
 	&& chmod +x /usr/local/bin/phpunit
 
+# Install Php-Cs-Fixer & PhpCS
+RUN cd /usr/local/bin \
+    && curl -sL http://cs.sensiolabs.org/download/php-cs-fixer-v2.phar -o php-cs-fixer \
+    && chmod +x php-cs-fixer \
+    && curl -sL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar -o phpcs \
+    && chmod +x phpcs
+
 # Create ssh dir for set config
 RUN mkdir -p ~/.ssh
 
